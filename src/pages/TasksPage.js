@@ -1,8 +1,9 @@
+import "../styles/cartsPage.css"
 
 function CartsPage() {
   return (
     <div>
-      <h1>My Cart</h1>
+      <div className = "title">My Cart</div>
     </div>
         );
  }

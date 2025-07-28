@@ -1,5 +1,6 @@
- import { useSelector } from 'react-redux';
- import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { useSelector } from 'react-redux';
+import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import "../styles/dashboard.css"
 
  function Dashboard() {
 
@@ -20,6 +21,7 @@
 
   return(
     <>
+    <div className = "title">Dashboard</div>
     <h3>Total Number of Products: {totalProducts}</h3>
     <h3>Total Number of Tasks: {totalTasks}</h3>
     <h3>Tasks In Progress: {tasksInProgress.length} </h3>

@@ -18,7 +18,7 @@ export const themeSlice = createSlice({
 
      //toggling the mode and the theme
      state.mode = state.mode === 'Light' ? 'Dark' : 'Light';
-     state.theme = state.mode === 'Light' ? darkTheme : lightTheme;
+     state.theme = state.mode === 'Light' ? lightTheme : darkTheme;
   },
 }});
 

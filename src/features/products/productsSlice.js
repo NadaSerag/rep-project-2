@@ -28,7 +28,7 @@ export const productsSlice = createSlice({
       state.count = state.array.length;
     },
 
-    editProduct: (state, action) =>{
+    editProduct: (state, action) => {
       //action.payload is the project with the new info, just same id,
       //so we find its place in the array (its index) by the id
       //then we change the other info manually
