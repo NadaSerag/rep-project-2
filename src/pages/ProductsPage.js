@@ -24,8 +24,21 @@ import "../styles/productsPage.css"
   const dispatch = useDispatch();
   const [productToEdit, setEditProduct] = useState(null);
 
-  function handleEditSubmit(updatedData) {
-    dispatch(editProduct(updatedData)); // make sure you have this action
+  const handleEditSubmit= async(updatedData) => {
+     /* updating title of product with id 1 */
+      const response = await fetch(`https://dummyjson.com/products/${updatedData.id}`, {
+        method: 'PUT', /* or PATCH */
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: updatedData.title,
+          price: updatedData.price,
+        })
+      });
+      const data = await response.json();
+      //do action with your dataa
+      console.log(data);
+
+    dispatch(editProduct(data)); // make sure you have this action
     setEditProduct(null); // exit edit mode
   };
 
@@ -130,9 +143,35 @@ if (error) {
   const tableHeadlines =["Product Title", "Price in $"]
 
 
+  // const onDeleteALL = async() => {
+  //     const response = await fetch('https://dummyjson.com/carts/1', {
+  // method: 'DELETE',});
+  //  const data = await response.json();
 
-  function onDelete(id){
-      dispatch(removeProduct(id));
+  //  //resetting the array in the cart to an empty one
+  //   dispatch(deleteCart(data));
+  // };
+
+  const onDelete = async(id) => {
+   const response = await fetch(`https://dummyjson.com/products/${id}`, {method: 'DELETE',})
+   const data = await response.json();
+   //printing out info claimed from API
+  console.log(data.title);
+   console.log(data.isDeleted);
+   console.log(data.deletedOn);
+
+   //RESPONSE FROM API details include:
+// {
+//   "id": 1,
+//   "title": "Essence Mascara Lash Princess",
+//   /* other product data */
+//   "isDeleted": true,
+//   "deletedOn": /* ISOTime */
+// }
+
+//actually removing the product from the array.
+    dispatch(removeProduct(id));
+
   };
 
   //productu here is the 'item' we give to the function onEdit in CustomTable,

@@ -27,10 +27,15 @@ export const cartSlice = createSlice({
           //action.payload is the NEW CART ARRAY, the array of cart objects (fetched from API)
           state.array = action.payload;
           state.count = state.array.length;
-      }
+    },
+
+    deleteCart: (state) => {
+        state.array = [];
+        state.count = 0;
+    },
     
  
 }});
 
-export const { addToCart, removeFromCart, setCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, setCart, deleteCart } = cartSlice.actions;
 export default cartSlice.reducer;
