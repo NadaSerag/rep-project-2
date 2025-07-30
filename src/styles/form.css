@@ -4,6 +4,9 @@
   border: 2px dashed red;
   padding: 20px;
 }*/
+.placeholder{
+  font-family: "DM Sans";
+}
 
 .INPUT {
   border: 1px solid blue;
@@ -38,6 +41,7 @@
   border: none;
   border-radius: 6px;
   font-size: 1rem;
+  font-family: "DM Sans";
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.1s ease;

@@ -40,6 +40,7 @@ export const productsSlice = createSlice({
     setProducts: (state, action) => {
       //action.payload is the NEW PRODUCT ARRAY, the array of product objects (fetched from API)
       state.array = action.payload;
+      state.count = state.array.length;
     }
 
   },

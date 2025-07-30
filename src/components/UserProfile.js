@@ -14,6 +14,8 @@ function UserProfile(){
   const [ email, setEmail] = useState(null);
   const [ error, setError] = useState(null);
 
+  const [ formFilled, setFormFilled] = useState(false);
+
  // let formSuccess = false;
 
 
@@ -29,8 +31,8 @@ function UserProfile(){
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-            username: 'emilys',
-           password: 'emilyspass',
+            username: user.username,
+           password: user.password,
         expiresInMins: 30, // optional, defaults to 60
       }),
      // credentials: 'include' // Include cookies (e.g., accessToken) in the request 
@@ -45,16 +47,21 @@ function UserProfile(){
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
+      console.log(data);
       setUsername(data.username);
       setEmail(data.email);
       //store user in localStorage?
       console.log("Log In Succeeded");
       setError(null);
       setShowForm(false);
+      setFormFilled(true);
+
 
     } catch (error) {
       console.log(error.message);
-      setError(error.message);
+      setError("Wrong username or password");
+      setFormFilled(false);
+
     } finally {
      console.log(error);
     }
@@ -79,16 +86,18 @@ function UserProfile(){
         alt="Profile"
         style={{ width: 100, height: 100, borderRadius: '50%' }}
       />
-      {username && <p> {username} </p>}
-      {email && <p>{email} </p>}
-      {/* {error ? <p>{error}</p> : <p>SUCCESS!</p>} */}
-    <button onClick={isLoggedIn ? handleLogOut: handleLogIn} className= {isLoggedIn ? "logout-btn" : "logout-btn"}>{isLoggedIn ? "Log Out" : "Log In"}</button>
+      {username && isLoggedIn&& <p> {username} </p>}
+      {email && isLoggedIn&& <p>{email} </p>}
+      {error && <p>{error}</p>}
+
+    <button onClick={isLoggedIn ? handleLogOut: handleLogIn} className= {isLoggedIn ? "logout-btn" : "login-btn"}>{isLoggedIn ? "Log Out" : "Log In"}</button>
+     {/* {!isLoggedIn && <button onClick={handleLogIn} className= "login-btn">{"Log In"}</button>}
+      {isLoggedIn && <button onClick = {handleLogOut}>"LOG OUT"</button>} */}
     {showForm &&  <CustomForm
        fields={fields}
        onSubmit={ handleSubmit }
-       buttonLabel={"LOG IN"}
+       buttonLabel={"Log In"}
        validationFile = { validation3 }/>}
-       
     </div>
   );
 }

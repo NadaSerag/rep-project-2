@@ -1,6 +1,7 @@
 .user-profile{
   font-family: "DM Sans";
   text-align: center;
+  margin-top: 20px;
 }
 
 /* styles.css */
@@ -18,4 +19,27 @@
 
 .logout-btn:hover {
   background-color: #d32f2f;
+}
+
+.login-btn {
+  padding: 8px 16px;
+  background-color: #2e7d32; /* green */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: "DM Sans";
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  margin: 1rem 0;
+}
+
+.login-btn:hover {
+  background-color: #1b5e20;
+  transform: scale(1.03);
+}
+
+.login-btn:active {
+  transform: scale(0.98);
 }
