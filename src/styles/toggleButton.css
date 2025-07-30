@@ -21,7 +21,7 @@ label:after{
   transition: 0.8s;
 }
 
-input{
+.inputToHide{
   width: 0;
   height: 0;
   visibility: hidden;

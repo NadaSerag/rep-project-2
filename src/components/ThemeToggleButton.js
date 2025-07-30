@@ -8,7 +8,11 @@ function ThemeToggleBttn() {
     const theme = useSelector((state) => state.products.array);
     return (
       <div className ="buttonWrapper">
-        <input type = "checkbox" id = "mode-toggle" onChange = { () => { dispatch(toggleTheme(theme))} }/>
+        <div className ="inputToHide">
+        <input 
+        type = "checkbox" id = "mode-toggle"
+        onChange = { () => { dispatch(toggleTheme(theme))} }/>
+        </div>
         <label for="mode-toggle" className="toggle-label">
         <SunIcon className="sun" />
         <MoonIcon className="moon" />
@@ -16,5 +20,42 @@ function ThemeToggleBttn() {
       </div>
     );
 };
+
+// function ThemeToggleBttn() {
+//     const dispatch = useDispatch();
+//     const theme = useSelector((state) => state.products.array);
+//     return (
+//       <div className ="buttonWrapper">
+//         {/* <div className ="inputToHide"> */}
+//         <input 
+//         type = "checkbox" id = "mode-toggle"
+//         onChange = { () => { dispatch(toggleTheme(theme))} }/>
+//         {/* </div> */}
+//         <label for="mode-toggle" className="toggle-label">
+//         <SunIcon className="sun" />
+//         <MoonIcon className="moon" />
+//       </label>
+//       </div>
+//     );
+// };
+
+
+
+// function ThemeToggleBttn() {
+//     const dispatch = useDispatch();
+//     const theme = useSelector((state) => state.products.array);
+//     return (
+//       <div className ="buttonWrapper">
+//         <input 
+//         type = "checkbox" id = "mode-toggle"
+//         onChange = { () => { dispatch(toggleTheme(theme))} }
+//         className = "inputToHide"/>
+//         <label for="mode-toggle" className="toggle-label">
+//         <SunIcon className="sun" />
+//         <MoonIcon className="moon" />
+//       </label>
+//       </div>
+//     );
+// };
 
 export default ThemeToggleBttn;

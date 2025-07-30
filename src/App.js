@@ -3,6 +3,7 @@ import './App.css';
 import Dashboard from './pages/Dashboard';
 import ProductsPage from './pages/ProductsPage';
 import CartsPage from './pages/TasksPage';
+import UserProfile from './components/UserProfile';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { useSelector } from 'react-redux';
 // import { useDispatch } from 'react-redux';
@@ -19,29 +20,34 @@ function App() {
      <div className="container">
       {/* Navigation Bar */}
        <ThemeProvider theme={theme}>
-        <CssBaseline /> 
+        <CssBaseline />
       <nav className = "vertical-nav">
+        <UserProfile/>
         <Link to="/" className= "textInNav">Dashboard</Link>
         <Link to="/products" className= "textInNav">Products</Link>
         <Link to="/carts" className= "textInNav">Carts</Link>
-      
+
       {/* Why not: <button onClick={dispatch(toggleTheme())}>...</button>
       that way, toggleTheme() is called immediately during render.
       onClick={...} expects a function that it can call later — when the user clicks the button. */}
     {/* <button onClick = {() => dispatch(toggleTheme())}>Switch to {themeMode === 'Dark' ? 'Dark' : 'Light'} Theme</button>  */}
-   
+
     <ThemeToggleBttn />
-               
     </nav>
-        {/* Route Configuration */}
+
+        {/* Route Configuration   hj*/}
         <main className="main-content">
+           {/* <nav className = "horizontal-nav"> 
+              <button>Go</button>
+            </nav> */}
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/carts" element={<CartsPage />} />
           <Route path="/products" element={<ProductsPage />} />
         </Routes>
         </main>
-    </ThemeProvider> 
+    </ThemeProvider>
+     
     </div>
   );
 }

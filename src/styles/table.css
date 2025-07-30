@@ -1,0 +1,65 @@
+.firstRow{
+  width: 1000px;
+  display: inline-block;
+  margin-right: 0px;
+  font-weight: bold;
+}
+
+.firstCells{
+  width: 100;
+  display: inline-block;
+  margin-right: 180px;
+  font-weight: bold;
+}
+
+
+.cell{
+  width: 300px;
+  display: inline-block;
+  margin-right: 0px;
+}
+
+
+.buttons {
+  margin-left: 0px;
+  display: inline-block;
+}
+
+.deleteBttn {
+  background-color: #d32f2f; /* red */
+  color: white;
+  margin-left: 0px;
+  display: inline-block;
+  padding: 6px 12px;
+  margin: 4px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.deleteBttn:hover {
+  background-color: #9a0007;
+}
+.editBttn {
+  background-color: #1976d2; /* blue */
+  color: white;
+  margin-left: 0px;
+  display: inline-block;
+  padding: 6px 12px;
+  margin: 4px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.editBttn:hover {
+  background-color: #115293;
+}
+
+

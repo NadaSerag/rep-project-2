@@ -1,24 +1,26 @@
 import CustomForm from '../components/CustomForm';
 import CustomTable from '../components/CustomTable';
  import { useDispatch } from 'react-redux';
- import { addProduct, removeProduct, editProduct } from '../features/products/productsSlice';
+ import { addProduct, removeProduct, editProduct, setProducts } from '../features/products/productsSlice';
  import { useForm } from 'react-hook-form';
  import { useSelector } from 'react-redux';
- import { useState } from 'react';
+ import { useState, useEffect } from 'react';
 import "../styles/productsPage.css"
 
+ import { validation } from "../components/YupFormValidation";
+
  function ProductsPage() {
- // const dispatch = useDispatch();
- // useEffect(() => {dispatch(fetchProjects());}, []);
 
 
+  const columns=['title', 'price'];
+  const products = useSelector((state) => state.products.array);
   //FORM PROPS
   const fields = [
-    { name: 'name', placeholder: 'Enter project', type: "text" },
-    { name: 'description', placeholder: 'Description', type: 'text' },
+    { name: 'title', placeholder: 'Enter product', type: "text" },
+    { name: 'price', placeholder: 'Enter Price', type: 'text' },
   ];
 
-  const { reset} = useForm()
+  const { reset} = useForm();
   const dispatch = useDispatch();
   const [productToEdit, setEditProduct] = useState(null);
 
@@ -27,12 +29,97 @@ import "../styles/productsPage.css"
     setEditProduct(null); // exit edit mode
   };
 
-  function onSubmission(data){
+ // const dispatch = useDispatch();
+ // useEffect(() => {dispatch(fetchProjects());}, []);
 
-      dispatch(addProduct(data));
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+ useEffect( () => {
+  async function fetchProjectsFromAPI(){
+    try{
+      const response = await fetch('https://dummyjson.com/products');
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const productObjectFetched = await response.json();
+      const productArray_Of_30_Fetched = productObjectFetched.products;
+   
+      dispatch(setProducts(productArray_Of_30_Fetched));
+
+    } catch (error) { //promise rejected
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+  fetchProjectsFromAPI();
+}, []);
+
+if (loading) {
+  return <div className = "loading">Loading...</div>;
+ }
+if (error) {
+  return <div>Error: {error}</div>;
+ }
+
+   
+
+//   const [users, setUsers] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState(null);
+//    useEffect(() => {
+//   const fetchUsers = async () => {
+//     try {
+//       const response = await fetch('https://jsonplaceholder.typicode.com/users');
+//       if (!response.ok) {
+//         throw new Error('Network response was not ok');
+//       }
+//       const data = await response.json();
+//       setUsers(data);
+//     } catch (error) { //promise rejected
+//       setError(error.message);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+//   fetchUsers();
+//  }, []);
+
+// if (loading) {
+//   return <div>Loading...</div>;
+//  }
+// if (error) {
+//   return <div>Error: {error}</div>;
+//  }
+
+
+
+
+  const onSubmission = async(submittedData) => {
+      const response = await fetch('https://dummyjson.com/products/add', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(
+      {title: submittedData.title,
+      price:submittedData.price,}
+      ),
+  });
+
+  // the difference between trusting your own input vs. trusting what the server returns.
+  // the server may respond with more data than just what you sent — and that data is usually important.
+  // Like the id, A unique id (e.g. id: 101)
+  // Timestamps (createdAt)
+  // Other auto-generated fields
+  // Validation-corrected data
+
+    const data = await response.json();
+
+    //Sending here the data object (product object) to Redux,
+    // what if  they align with the state properties?
+    dispatch(addProduct(data));
 
       //adding a slight delay here so that this way, React has a moment to update the table before the alert appears.
-      setTimeout(() => {alert("Project Added Successfully!")}, 100);
+    setTimeout(() => {alert("Project Added Successfully!")}, 100);
 
       //then we're calling reset() inside onSubmit() after dispatching to clear the form fields.
       reset();
@@ -40,10 +127,9 @@ import "../styles/productsPage.css"
 
 
  //TABLE PROPS
-  const tableHeadlines =["ProductName", "Description"]
+  const tableHeadlines =["Product Title", "Price in $"]
 
-  const products = useSelector((state) => state.products.array);
-  const columns=['name', 'description'];
+
 
   function onDelete(id){
       dispatch(removeProduct(id));
@@ -59,8 +145,23 @@ import "../styles/productsPage.css"
   return (
     <div>
       <div className = "title">Products</div>
-       <CustomTable tableHeadlines = { tableHeadlines } content = { products } columnsToShow = { columns } onDelete = { onDelete } onEdit = { handleEdit } />
-       <CustomForm fields={fields} onSubmit={ onSubmission } buttonLabel={productToEdit ? "Update Product" : "Add Product"} onEdit = { handleEditSubmit } dataToEdit={productToEdit} />
+      <div className ="table">
+       <CustomTable
+       tableHeadlines = { tableHeadlines }
+       content = { products }
+       columnsToShow = { columns }
+       onDelete = { onDelete }
+       onEdit = { handleEdit }/>
+      </div>
+      
+       <CustomForm
+       fields={fields}
+       onSubmit={ onSubmission }
+       buttonLabel={productToEdit ? "Update Product" : "Add Product"}
+       onEdit = { handleEditSubmit }
+       dataToEdit={productToEdit}
+       validationFile = { validation }/>
+
     </div>
   );
  }
