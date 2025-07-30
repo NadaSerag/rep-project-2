@@ -2,7 +2,7 @@ import { Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 import Dashboard from './pages/Dashboard';
 import ProductsPage from './pages/ProductsPage';
-import CartsPage from './pages/TasksPage';
+import CartsPage from './pages/CartsPage';
 import UserProfile from './components/UserProfile';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { useSelector } from 'react-redux';
