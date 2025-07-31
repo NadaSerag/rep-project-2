@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 //the state:
 //The actual data this slice manages (the array and the count)
 
-const firstProduct = { id: 1, title: "Headband", price: "$10" };
+const firstProduct = { id: 1, title: "Headband", price: "$10", quantity: 1 };
 
 const initialState = {
   array: [firstProduct],

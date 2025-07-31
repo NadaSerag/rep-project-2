@@ -1,6 +1,6 @@
 import { Table, TableHead, TableBody, TableRow, TableCell } from '@mui/material';
 import "../styles/table.css";
-function CustomTable( { tableHeadlines, content, columnsToShow, onDelete, onEdit }) {
+function CustomTable( { tableHeadlines, content, columnsToShow, onDelete, onEdit, yesEdit }) {
 
   return(
     <div className = "MainTable">
@@ -34,7 +34,7 @@ function CustomTable( { tableHeadlines, content, columnsToShow, onDelete, onEdit
        <div className = "buttons">        
       <TableCell>
       <button onClick = {() => onDelete(item.id) } className = "deleteBttn">Delete</button> 
-      <button onClick = {() => onEdit(item)} className = "editBttn">Edit</button> 
+      {yesEdit && <button onClick = {() => onEdit(item)} className = "editBttn">Edit</button>}
       </TableCell>
         </div>
        

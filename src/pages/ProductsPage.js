@@ -6,7 +6,6 @@ import CustomTable from '../components/CustomTable';
  import { useSelector } from 'react-redux';
  import { useState, useEffect } from 'react';
 import "../styles/productsPage.css"
-
  import { validation } from "../components/YupFormValidation";
 
  function ProductsPage() {
@@ -23,6 +22,9 @@ import "../styles/productsPage.css"
   const { reset} = useForm();
   const dispatch = useDispatch();
   const [productToEdit, setEditProduct] = useState(null);
+
+  const [sort, setSort] = useState("title");
+  const [order, setOrder] = useState("asc");
 
   const handleEditSubmit= async(updatedData) => {
      /* updating title of product with id 1 */
@@ -181,16 +183,60 @@ if (error) {
     setEditProduct(product);
   };
 
+  
+
+  const sortIt = async(sort, order) =>{
+    const response = await fetch(`https://dummyjson.com/products?sortBy=${sort}&order=${order}`)
+    //const response = await fetch(`https://dummyjson.com/products?sortBy=title&order=asc`)
+     const sortedProducts = await response.json();
+
+     console.log(sortedProducts.products);
+
+     //UNDEFINED
+     dispatch(setProducts(sortedProducts.products));
+  }
+
+  function handleSort(event){
+    setSort(event.target.value);
+    sortIt(sort, order);
+  }
+
+   function handleOrder(event){
+    setOrder(event.target.value);
+    sortIt(sort, order);
+  }
+
+
   return (
+    
     <div>
       <div className = "title">Products</div>
+      {/* <label>
+        Sort by:{" "} */}
+        <p className = "sortWord">Sort:</p>
+        <select onChange={ handleSort }>
+          <option value="title">Title</option>
+          <option value="price">Price</option>
+        </select>
+      {/* </label> */}
+
+      {/* <label style={{ marginLeft: "20px" }}>
+        Order:{" "} */}
+        <select onChange={ handleOrder }>
+          {/* Ascending is being registered as desc because they're switched in array */}
+          <option value="desc">Ascending</option>
+          <option value="asc">Descending</option>
+        </select>
+      {/* </label> */}
+
       <div className ="table">
        <CustomTable
        tableHeadlines = { tableHeadlines }
        content = { products }
        columnsToShow = { columns }
        onDelete = { onDelete }
-       onEdit = { handleEdit }/>
+       onEdit = { handleEdit }
+       yesEdit = { true }/>
       </div>
       
        <CustomForm

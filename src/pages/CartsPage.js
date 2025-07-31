@@ -1,24 +1,25 @@
 import "../styles/cartsPage.css"
  import { useSelector } from 'react-redux';
   import { useDispatch } from 'react-redux';
- import { removeFromCart, setCart, deleteCart } from '../features/cart/cartSlice';
+ import { addToCart, removeFromCart, setCart, deleteCart } from '../features/cart/cartSlice';
  import { useState, useEffect } from 'react';
  import CustomTable from '../components/CustomTable';
 
 function CartsPage( {idOfUser}) {
 
 
-  const columns=['title', 'price', 'id'];
+  const columns=['title', 'price', 'quantity'];
 
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+
   const cartContent = useSelector((state) => state.cart.array);
   const cartCount = useSelector((state) => state.cart.count);
-
   const products = useSelector((state) => state.products.array);
+  const totalPrice = Number ((useSelector((state) => state.cart.totalPrice)).toFixed(2));
 
   // getting carts by user with id 5
 // fetch('https://dummyjson.com/carts/user/5')
@@ -62,11 +63,9 @@ if (error) {
   return <div>Error: {error}</div>;
  }
 
-   
-
   
  //TABLE PROPS
-  const tableHeadlines =["Product", "Price in $", "Id"]
+  const tableHeadlines =["Product", "Price in $", "Quantity"]
 
 
 
@@ -83,30 +82,53 @@ if (error) {
     dispatch(deleteCart(data));
   };
 
-  const cartAddittion = async(chosenProduct) =>{
+  const cartAddittion = async(event) =>{
       /* adding products in cart with id 1 */
+
+      //finding the product OBJECT chosen by searching to find a matching title
+
+      if(event.target.value === "") //if the "Add to Cart" option itself is selected, don't do anything
+        return;
+      const productObj = products.find((product) => product.title === event.target.value);
+
+      //productObj.quantity = 1;  //CANT DO THAT AS OBJECT created with Object.freeze() or reeived from API IS IMMUTABLE
+      //so must create a shallow copy and edit in it as you want:
+      const newProduct = {
+        ...productObj,
+           quantity: 1
+      };
+
        const response = await fetch('https://dummyjson.com/carts/1', {
             method: 'PUT', /* or PATCH */
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               merge: true, // this will include existing products in the cart
-              products: [...products, chosenProduct]
+              products: [...products, newProduct]
+
             })
           })
         const data = await response.json();
-        console.log(data);
-      //  dispatch(setCart(data.products));
 
-  }
+        // console.log(data);
+        console.log(data.products);
 
+        //------------------------------------------------------------------------------------------------
+      // dispatch(setCart(data.products)); --Adds the product but also returns the whole new array. 
+       //------------------------------------------------------------------------------------------------
+
+       //used this instead
+      dispatch(addToCart(newProduct));
+
+        }
+  
   return (
     <div>
       <div className = "title">My Cart</div>
-      <h4>Total: </h4>
+      <h4>Total:{totalPrice} </h4>
       {cartCount !== 0 && <button className = "deleteBttn" onClick = {onDeleteALL}> DELETE ALL</button> }
       {/* <button onClick = { cartAddittion }>Add to cart</button> */}
-      <select onSelect = { cartAddittion }>
-        <option value="">-- Add to cart --</option>
+      <select onChange = { cartAddittion }>
+        <option value="" className = "addToCartBttn">-- Add to cart --</option>
         {products.map((product) =>
         <option value={product.title}> {product.title}</option>
         )}
@@ -115,7 +137,9 @@ if (error) {
        tableHeadlines = { tableHeadlines }
        content = { cartContent }
        columnsToShow = { columns }
-       onDelete = { onDelete }/>
+       onDelete = { onDelete }
+       yesEdit = { false }
+       />
     </div>
         );
  }

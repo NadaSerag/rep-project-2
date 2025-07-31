@@ -25,7 +25,7 @@ function App() {
         <UserProfile/>
         <Link to="/" className= "textInNav">Dashboard</Link>
         <Link to="/products" className= "textInNav">Products</Link>
-        <Link to="/carts" className= "textInNav">Carts</Link>
+        <Link to="/carts" className= "textInNav">Cart</Link>
 
       {/* Why not: <button onClick={dispatch(toggleTheme())}>...</button>
       that way, toggleTheme() is called immediately during render.

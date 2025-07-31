@@ -3,3 +3,11 @@
   font-size: 55px;
   margin-top: 20px;
 }
+
+.addToCartBttn{
+  font-family: "DM Sans";
+   background-color: #2e7d32; /* green */
+  color: white;
+  border: none;
+  border-radius: 6px;
+}
