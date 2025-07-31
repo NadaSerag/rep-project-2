@@ -1,15 +1,16 @@
 .firstRow{
-  width: 1000px;
+  width: 10000px;
   display: inline-block;
   margin-right: 0px;
   font-weight: bold;
 }
 
 .firstCells{
-  width: 100;
+  width: 50px;
   display: inline-block;
-  margin-right: 180px;
+  margin-right: 250px;
   font-weight: bold;
+  padding-right: 20px;
 }
 
 
@@ -23,6 +24,7 @@
 .buttons {
   margin-left: 0px;
   display: inline-block;
+  
 }
 
 .deleteBttn {
@@ -35,9 +37,10 @@
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-size: 15px;
+  font-weight: bold;
   transition: background-color 0.3s ease;
+  font-family: "DM Sans"
 }
 
 .deleteBttn:hover {
@@ -53,9 +56,10 @@
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-size: 15px;
+  font-weight: bold;
   transition: background-color 0.3s ease;
+  font-family: "DM Sans"
 }
 
 .editBttn:hover {

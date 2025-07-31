@@ -86,3 +86,7 @@ input:checked + .toggle-label .sun {
 input:checked + .toggle-label .moon {
   opacity: 1;
 }
+
+.buttonWrapper{
+  margin-top: 300px;
+}

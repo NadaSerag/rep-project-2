@@ -15,6 +15,7 @@
   font-family: "DM Sans";
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-left: 15px;
 }
 
 .logout-btn:hover {
@@ -33,6 +34,8 @@
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.1s ease;
   margin: 1rem 0;
+  margin-left: 15px;
+  display: block;
 }
 
 .login-btn:hover {
@@ -42,4 +45,9 @@
 
 .login-btn:active {
   transform: scale(0.98);
+}
+
+.profile{
+  display: block;
+  width: 100%;
 }

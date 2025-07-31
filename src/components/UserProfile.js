@@ -14,7 +14,7 @@ function UserProfile(){
   const [ email, setEmail] = useState(null);
   const [ error, setError] = useState(null);
 
-  const [ formFilled, setFormFilled] = useState(false);
+  const [ formFilled, setFormFilled] = useState(true);
 
  // let formSuccess = false;
 
@@ -55,12 +55,13 @@ function UserProfile(){
       setError(null);
       setShowForm(false);
       setFormFilled(true);
-
+      setImgPath(loginPic);
+      setLoggedIn(true);
 
     } catch (error) {
       console.log(error.message);
       setError("Wrong username or password");
-      setFormFilled(false);
+      setFormFilled(true);
 
     } finally {
      console.log(error);
@@ -69,14 +70,15 @@ function UserProfile(){
 
   function handleLogIn(){
     setShowForm(true);
-    setLoggedIn(true);
-    setImgPath(loginPic);
+   setFormFilled(false);
+   
   }
 
   function handleLogOut(){
     setLoggedIn(false);
     setImgPath(defaultPic);
     setShowForm(false);
+   
   }
 
   return(
@@ -85,12 +87,15 @@ function UserProfile(){
        <img src= { imgPath } 
         alt="Profile"
         style={{ width: 100, height: 100, borderRadius: '50%' }}
+        classname ="profile"
       />
       {username && isLoggedIn&& <p> {username} </p>}
       {email && isLoggedIn&& <p>{email} </p>}
       {error && <p>{error}</p>}
 
-    <button onClick={isLoggedIn ? handleLogOut: handleLogIn} className= {isLoggedIn ? "logout-btn" : "login-btn"}>{isLoggedIn ? "Log Out" : "Log In"}</button>
+    {formFilled && <button onClick={isLoggedIn ? handleLogOut: handleLogIn} className= {isLoggedIn ? "logout-btn" : "login-btn"}>
+      {isLoggedIn ? "Log Out" : "Log In"}</button>}
+
      {/* {!isLoggedIn && <button onClick={handleLogIn} className= "login-btn">{"Log In"}</button>}
       {isLoggedIn && <button onClick = {handleLogOut}>"LOG OUT"</button>} */}
     {showForm &&  <CustomForm

@@ -113,7 +113,7 @@ if (error) {
         console.log(data.products);
 
         //------------------------------------------------------------------------------------------------
-      // dispatch(setCart(data.products)); --Adds the product but also returns the whole new array. 
+       //dispatch(setCart(data.products));// --Adds the product but also returns the whole new array. 
        //------------------------------------------------------------------------------------------------
 
        //used this instead
@@ -124,7 +124,7 @@ if (error) {
   return (
     <div>
       <div className = "title">My Cart</div>
-      <h4>Total:{totalPrice} </h4>
+      
       {cartCount !== 0 && <button className = "deleteBttn" onClick = {onDeleteALL}> DELETE ALL</button> }
       {/* <button onClick = { cartAddittion }>Add to cart</button> */}
       <select onChange = { cartAddittion }>
@@ -140,6 +140,7 @@ if (error) {
        onDelete = { onDelete }
        yesEdit = { false }
        />
+       <h4 className= "total">Total:   {totalPrice} </h4>
     </div>
         );
  }

@@ -12,7 +12,7 @@ function CustomTable( { tableHeadlines, content, columnsToShow, onDelete, onEdit
  
       {tableHeadlines.map((headline) => 
      <div className="firstCells">
-      <TableCell> { headline }</TableCell>
+      <TableCell sx={{ fontWeight: 'bold', fontSize: '20px', whiteSpace: 'nowrap' }}> { headline }</TableCell>
       </div>
      )}
 
@@ -33,8 +33,8 @@ function CustomTable( { tableHeadlines, content, columnsToShow, onDelete, onEdit
       ))}
        <div className = "buttons">        
       <TableCell>
-      <button onClick = {() => onDelete(item.id) } className = "deleteBttn">Delete</button> 
-      {yesEdit && <button onClick = {() => onEdit(item)} className = "editBttn">Edit</button>}
+      <button onClick = {() => onDelete(item.id) } className = "deleteBttn">DELETE</button> 
+      {yesEdit && <button onClick = {() => onEdit(item)} className = "editBttn">EDIT</button>}
       </TableCell>
         </div>
        

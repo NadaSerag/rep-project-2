@@ -32,7 +32,7 @@ function App() {
       onClick={...} expects a function that it can call later — when the user clicks the button. */}
     {/* <button onClick = {() => dispatch(toggleTheme())}>Switch to {themeMode === 'Dark' ? 'Dark' : 'Light'} Theme</button>  */}
 
-    <ThemeToggleBttn />
+    <ThemeToggleBttn className = "toggle-bttn"/>
     </nav>
 
         {/* Route Configuration   hj*/}
